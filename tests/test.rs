@@ -3,7 +3,7 @@ extern crate assert_cli;
 #[test]
 fn main_thread() {
     assert_cli::Assert::main_binary()
-        .stdin("hello")
+        .stdin("hello\n")
         .stdout()
         .is("hello")
         .unwrap();
@@ -13,7 +13,7 @@ fn main_thread() {
 fn child_thread() {
     assert_cli::Assert::main_binary()
         .with_args(&["--child"])
-        .stdin("hello")
+        .stdin("hello\n")
         .stdout()
         .is("hello")
         .unwrap();
@@ -23,7 +23,7 @@ fn child_thread() {
 fn subchild_thread() {
     assert_cli::Assert::main_binary()
         .with_args(&["--subchild"])
-        .stdin("hello")
+        .stdin("hello\n")
         .stdout()
         .is("hello")
         .unwrap();

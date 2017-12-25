@@ -1,6 +1,12 @@
+extern crate console;
+extern crate dialoguer;
+
 use std::env;
-use std::io;
 use std::thread;
+
+use console::style;
+use console::Term;
+use dialoguer::Input;
 
 fn child_thread(f: Box<Fn() + Send>) {
     let child = thread::spawn(move || f());
@@ -8,14 +14,12 @@ fn child_thread(f: Box<Fn() + Send>) {
 }
 
 fn read_and_echo() {
-    let mut input = String::new();
-    match io::stdin().read_line(&mut input) {
-        Ok(n) => {
-            input.truncate(n);
-            println!("{}", input);
-        }
-        Err(error) => panic!("error: {}", error),
-    }
+    let term = Term::stderr();
+    let prompt = format!("{}", style(">>").blue().bold());
+    let input = Input::new(&prompt);
+
+    let msg = input.interact_on(&term).unwrap();
+    println!("{}", msg);
 }
 
 fn main() {

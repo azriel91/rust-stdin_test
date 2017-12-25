@@ -4,4 +4,8 @@ version = "0.1.0"
 authors = ["Azriel Hoh <mail@azriel.im>"]
 
 [dependencies]
+console = "0.5"
+dialoguer = "0.1"
+
+[dev-dependencies]
 assert_cli = "0.5"
